@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tariff Wars & Supply Chain Restructuring — Global Analysis 2020–2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-soft: #F8F7F5;
+    --bg-card: #FFFFFF;
+    --text-primary: #1a1917;
+    --text-secondary: #5c5b57;
+    --text-muted: #8f8e8a;
+    --border: rgba(0,0,0,0.08);
+    --border-strong: rgba(0,0,0,0.15);
+    --accent-blue: #1B5FA3;
+    --accent-blue-light: #E3EEFB;
+    --accent-red: #C03535;
+    --accent-red-light: #FAEAEA;
+    --accent-orange: #B96818;
+    --accent-orange-light: #FDF0E0;
+    --accent-green: #2E6E2E;
+    --accent-green-light: #E8F3E8;
+    --accent-purple: #5A3FB5;
+    --accent-purple-light: #EDEBFB;
+    --accent-teal: #1A7A5E;
+    --accent-teal-light: #E2F3EE;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05);
+    --r: 12px;
+    --r-sm: 8px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg-soft); color: var(--text-primary); line-height: 1.6; }
+  
+  /* HEADER */
+  .hero { background: var(--bg); border-bottom: 1px solid var(--border); padding: 48px 0 32px; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  .hero-label { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-blue); background: var(--accent-blue-light); display: inline-block; padding: 4px 10px; border-radius: 4px; margin-bottom: 16px; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4vw, 44px); font-weight: 400; line-height: 1.2; color: var(--text-primary); margin-bottom: 12px; max-width: 800px; }
+  .hero p { font-size: 16px; color: var(--text-secondary); max-width: 700px; line-height: 1.7; }
+  .hero-meta { display: flex; gap: 24px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .hero-meta-item { display: flex; flex-direction: column; }
+  .hero-meta-item .val { font-size: 24px; font-weight: 500; color: var(--text-primary); }
+  .hero-meta-item .lbl { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  
+  /* NAV */
+  .nav { background: var(--bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .nav-inner { display: flex; gap: 4px; padding: 0 32px; overflow-x: auto; scrollbar-width: none; max-width: 1280px; margin: 0 auto; }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-btn { padding: 14px 16px; font-size: 13px; font-weight: 500; color: var(--text-secondary); border: none; background: none; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .nav-btn:hover { color: var(--text-primary); }
+  .nav-btn.active { color: var(--accent-blue); border-bottom-color: var(--accent-blue); }
+  
+  /* SECTIONS */
+  .section { padding: 40px 0; }
+  .section-header { margin-bottom: 32px; }
+  .section-header h2 { font-family: 'DM Serif Display', serif; font-size: 28px; font-weight: 400; margin-bottom: 8px; }
+  .section-header p { font-size: 15px; color: var(--text-secondary); max-width: 700px; line-height: 1.7; }
+  
+  /* CARDS */
+  .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); padding: 24px; box-shadow: var(--shadow-sm); }
+  .card-title { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+  .card-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5; }
+  .insight-box { background: #FFFBF0; border: 1px solid #F0D890; border-radius: var(--r-sm); padding: 14px 16px; margin-top: 16px; }
+  .insight-box p { font-size: 13px; line-height: 1.6; color: #5a4a10; }
+  .insight-box strong { color: #3a2e08; }
+  
+  /* GRIDS */
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .grid-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+  .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+  @media (max-width: 1024px) { .grid-2, .grid-3, .grid-4, .grid-1-2, .grid-2-1 { grid-template-columns: 1fr; } }
+  
+  /* METRIC TILES */
+  .metric-tile { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 16px 20px; }
+  .metric-tile .label { font-size: 12px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 6px; }
+  .metric-tile .value { font-size: 26px; font-weight: 500; color: var(--text-primary); }
+  .metric-tile .sub { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+  .metric-tile .delta { font-size: 12px; font-weight: 500; margin-left: 6px; }
+  .delta-up { color: var(--accent-green); }
+  .delta-down { color: var(--accent-red); }
+  
+  /* SOURCE TOOLTIP */
+  .src { border-bottom: 1px dashed var(--text-muted); cursor: help; position: relative; display: inline-block; }
+  .src:hover::after { content: attr(data-src); position: absolute; bottom: calc(100% + 6px); left: 0; background: #1a1917; color: #fff; font-size: 11px; padding: 6px 10px; border-radius: 6px; white-space: normal; min-width: 220px; max-width: 340px; line-height: 1.5; z-index: 200; pointer-events: none; }
+  .src:hover::before { content: ''; position: absolute; bottom: calc(100% + 0px); left: 10px; border: 4px solid transparent; border-top-color: #1a1917; border-bottom: none; z-index: 200; }
+  
+  /* CHART WRAP */
+  .chart-wrap { position: relative; width: 100%; }
+  
+  /* TARIFF TIMELINE */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 1px; background: var(--border-strong); }
+  .timeline-item { position: relative; margin-bottom: 20px; }
+  .timeline-item::before { content: ''; position: absolute; left: -24px; top: 6px; width: 9px; height: 9px; border-radius: 50%; border: 2px solid; }
+  .timeline-item.us { }
+  .timeline-item.us::before { background: var(--accent-blue); border-color: var(--accent-blue); }
+  .timeline-item.cn::before { background: var(--accent-red); border-color: var(--accent-red); }
+  .timeline-item.in::before { background: var(--accent-orange); border-color: var(--accent-orange); }
+  .timeline-item .date { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; color: var(--text-muted); text-transform: uppercase; }
+  .timeline-item .desc { font-size: 13px; color: var(--text-primary); margin-top: 2px; line-height: 1.5; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px; margin-right: 6px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .tag-us { background: var(--accent-blue-light); color: var(--accent-blue); }
+  .tag-cn { background: var(--accent-red-light); color: var(--accent-red); }
+  .tag-in { background: var(--accent-orange-light); color: var(--accent-orange); }
+  .tag-vn { background: var(--accent-teal-light); color: var(--accent-teal); }
+  
+  /* MAP */
+  #trade-map { height: 440px; border-radius: var(--r); overflow: hidden; }
+  
+  /* BUBBLE CHART LEGEND */
+  .bubble-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+  .bubble-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); }
+  .bubble-legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  
+  /* CLUSTER BARS */
+  .cluster-row { display: grid; grid-template-columns: 140px 1fr 80px; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .cluster-name { font-size: 13px; font-weight: 500; text-align: right; color: var(--text-secondary); }
+  .cluster-bar-track { height: 22px; background: var(--bg-soft); border-radius: 4px; overflow: hidden; }
+  .cluster-bar-fill { height: 100%; border-radius: 4px; position: relative; display: flex; align-items: center; transition: width 1s ease; }
+  .cluster-bar-fill span { font-size: 11px; font-weight: 500; padding: 0 8px; color: #fff; white-space: nowrap; }
+  .cluster-val { font-size: 13px; font-weight: 500; color: var(--text-secondary); font-family: 'JetBrains Mono', monospace; }
+  
+  /* INDIA SCORECARD */
+  .scorecard-row { display: flex; align-items: stretch; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+  .scorecard-item { flex: 1; min-width: 140px; border-radius: var(--r-sm); padding: 14px 16px; border: 1px solid var(--border); }
+  .scorecard-item .si-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
+  .scorecard-item .si-val { font-size: 20px; font-weight: 500; margin: 4px 0 2px; }
+  .scorecard-item .si-sub { font-size: 12px; color: var(--text-secondary); }
+  .si-pos { background: #F0FAF0; border-color: #B8DEB8; }
+  .si-pos .si-val { color: var(--accent-green); }
+  .si-neg { background: #FEF4F4; border-color: #F5C5C5; }
+  .si-neg .si-val { color: var(--accent-red); }
+  .si-neu { background: #F5F4F2; border-color: var(--border); }
+  .si-neu .si-val { color: var(--text-primary); }
+  
+  /* FORMULA BOX */
+  .formula-box { background: #F8F7FF; border: 1px solid #D8D3F0; border-radius: var(--r-sm); padding: 16px 20px; margin: 16px 0; }
+  .formula-box code { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--accent-purple); display: block; margin: 6px 0; }
+  .formula-box .var-list { font-size: 12px; color: #4a3d8a; line-height: 1.8; margin-top: 8px; }
+  
+  /* ASSUMPTION BOX */
+  .assumption-box { background: #F0F8FF; border: 1px solid #B8D5F0; border-radius: var(--r-sm); padding: 12px 16px; margin-top: 12px; font-size: 12px; color: #1a4a6e; line-height: 1.6; }
+  .assumption-box strong { color: #0f2e46; }
+  
+  /* SECTION DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 8px 0; }
+  
+  /* COMPARISON TABLE */
+  .comp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .comp-table th { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); font-weight: 500; padding: 10px 12px; border-bottom: 1px solid var(--border-strong); text-align: left; }
+  .comp-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .comp-table tr:last-child td { border-bottom: none; }
+  .comp-table tr:hover td { background: var(--bg-soft); }
+  .pill { display: inline-block; padding: 3px 9px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .pill-high { background: #FAEAEA; color: #A32020; }
+  .pill-mid { background: #FFF3DC; color: #8A5000; }
+  .pill-low { background: #E8F3E8; color: #2A5A2A; }
+  .pill-pos { background: #E3EEF5; color: #1a4f7a; }
+  
+  /* SHIPPING LANES LEGEND */
+  .lane-legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--text-secondary); padding: 12px 0; }
+  .lane-legend span { display: flex; align-items: center; gap: 6px; }
+  .lane-line { height: 3px; width: 28px; border-radius: 2px; }
+
+  /* RESPONSIVE CHART HEIGHTS */
+  .ch-280 { height: 280px; }
+  .ch-320 { height: 320px; }
+  .ch-360 { height: 360px; }
+  .ch-400 { height: 400px; }
+  .ch-240 { height: 240px; }
+
+  /* FOOTER */
+  footer { background: var(--bg); border-top: 1px solid var(--border); padding: 40px 0; margin-top: 40px; }
+  footer p { font-size: 13px; color: var(--text-muted); line-height: 1.7; max-width: 900px; }
+  footer h3 { font-size: 15px; font-weight: 500; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <span class="hero-label">Global Trade Intelligence 2020–2026</span>
+    <h1>Tariff Wars & Supply Chain Restructuring:<br>US–China, US–India & the New Global Order</h1>
+    <p>A data-driven analysis of how the US–China tariff war, and escalating US–India trade tensions, have reshaped global supply chains — and whether India has capitalised or ceded ground to Vietnam, Bangladesh and Mexico.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="val"><span class="src" data-src="Wikipedia: US imposed 145% tariff in April 2025. After May 2025 truce, reduced to 30%. Source: China-Briefing.com, Wikipedia US-China trade war.">145%</span></span>
+        <span class="lbl">Peak US Tariff on China (Apr 2025)</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="val"><span class="src" data-src="China's share of US imports fell from 21.6% in 2017 to ~13% by 2024. Source: Freund et al. 2024, World Bank Working Paper, Alfaro & Chor 2025 CEPR.">13%</span></span>
+        <span class="lbl">China's US Import Share (2024, down from 21.6% in 2017)</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="val"><span class="src" data-src="US bilateral trade with India was $129.2B in 2024 and grew to $132.2B in FY2024-25. Source: ClearTax India, USTR, US Census Bureau.">$132B</span></span>
+        <span class="lbl">US–India Bilateral Trade FY2024–25</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="val"><span class="src" data-src="Vietnam gained ~2pp of US import share between 2017-2024. Source: Alfaro & Chor 2025, CEPR VoxEU; Rhodium Group Chain Reaction report.">+2pp</span></span>
+        <span class="lbl">Vietnam US Import Share Gained (2017–2024)</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="val"><span class="src" data-src="India-US deal Feb 2026: tariff reduced from 50% to 18%. Source: ClearTax (updated Feb 2026), The Global Statistics, India Briefing.">18%</span></span>
+        <span class="lbl">India's Current US Tariff Rate (post Feb 2026 deal)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('tariff-timeline')">Tariff Timeline</button>
+    <button class="nav-btn" onclick="scrollTo('import-shifts')">US Import Shifts</button>
+    <button class="nav-btn" onclick="scrollTo('shipping-map')">Shipping Lanes</button>
+    <button class="nav-btn" onclick="scrollTo('industrial-clusters')">Industrial Clusters</button>
+    <button class="nav-btn" onclick="scrollTo('india-analysis')">India Analysis</button>
+    <button class="nav-btn" onclick="scrollTo('country-compare')">Country Comparison</button>
+    <button class="nav-btn" onclick="scrollTo('sector-impact')">Sector Impact</button>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 1: TARIFF TIMELINE + RATES -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section" id="tariff-timeline">
+  <div class="section-header">
+    <h2>Tariff Timeline: A Decade of Escalation</h2>
+    <p>From the first Section 301 tariffs in 2018 through the 2025 Liberation Day shock and the subsequent de-escalation, this section maps every major tariff event affecting US–China and US–India trade flows.</p>
+  </div>
+  
+  <div class="grid-1-2">
+    <!-- Timeline -->
+    <div class="card">
+      <div class="card-title">Key Tariff Events (2018–2026)</div>
+      <div class="card-sub">Hover dates for context. Colour = initiating country. <span class="src" data-src="Sources: China-Briefing.com 2025 tariff tracker, Wikipedia US-China trade war, ClearTax India, USTR, Tax Foundation Tariff Tracker (updated Mar 2026).">All event data sourced from public trade records.</span></div>
+      <div class="timeline">
+        <div class="timeline-item us">
+          <div class="date"><span class="tag tag-us">US</span>Jul 2018</div>
+          <div class="desc"><span class="src" data-src="Section 301 List 1: 25% on $34B of Chinese goods (818 products). Source: USTR, China-Briefing.com.">Section 301 List 1: 25% on $34B Chinese goods</span></div>
+        </div>
+        <div class="timeline-item us">
+          <div class="date"><span class="tag tag-us">US</span>Aug–Sep 2018</div>
+          <div class="desc"><span class="src" data-src="Lists 2 and 3 added, bringing total tariffed goods to ~$250B at 25%. Source: USTR, Peterson Institute.">Lists 2 & 3: total $250B at 25% (Sec. 301)</span></div>
+        </div>
+        <div class="timeline-item cn">
+          <div class="date"><span class="tag tag-cn">CN</span>2018–2019</div>
+          <div class="desc"><span class="src" data-src="China retaliated with tariffs on >$106B of US goods, estimated tax of ~$11.6B. Source: Tax Foundation Tariff Tracker 2026.">China retaliates: tariffs on $106B+ of US goods</span></div>
+        </div>
+        <div class="timeline-item us">
+          <div class="date"><span class="tag tag-us">US</span>May 2024</div>
+          <div class="desc"><span class="src" data-src="Biden 4-year review: EVs 25%→100%, solar cells 25%→50%, steel/Al 0%→25%. Affects $18B in goods. Source: Tax Foundation, USTR.">Biden 4-yr review: EVs 25→100%, solar 50%, steel 25%</span></div>
+        </div>
+        <div class="timeline-item us">
+          <div class="date"><span class="tag tag-us">US</span>Feb 2025</div>
+          <div class="desc"><span class="src" data-src="Trump 2nd term: additional 10% fentanyl tariff on all Chinese goods effective Feb 4, 2025. Source: China-Briefing.com, Wikipedia.">+10% fentanyl tariff on all Chinese goods</span></div>
+        </div>
+        <div class="timeline-item us">
+          <div class="date"><span class="tag tag-us">US</span>Apr 2, 2025</div>
+          <div class="desc"><span class="src" data-src="Liberation Day: blanket reciprocal tariffs. China 34%, India 26% (later 52%), Vietnam 46%, Bangladesh 37%. Source: USTR, Rhodium Group, India Briefing.">Liberation Day: China 34%, India 26%, Vietnam 46%</span></div>
+        </div>
+        <div class="timeline-item us">
+          <div class="date"><span class="tag tag-us">US</span>Apr 9–12 2025</div>
+          <div class="desc"><span class="src" data-src="US escalated to 145% on China; China responded with 84%, then 125%. Source: Wikipedia US-China trade war, China-Briefing.com.">US–China spiral: US 145% ↔ China 125%</span></div>
+        </div>
+        <div class="timeline-item in">
+          <div class="date"><span class="tag tag-in">IN</span>Aug 2025</div>
+          <div class="desc"><span class="src" data-src="India's tariff reached 50% total: 10% baseline + 25% reciprocal + 25% additional for Russian oil purchases. Source: ClearTax.in, India Briefing.">India hits 50%: baseline + reciprocal + Russian oil penalty</span></div>
+        </div>
+        <div class="timeline-item us">
+          <div class="date"><span class="tag tag-us">US</span>May 2025</div>
+          <div class="desc"><span class="src" data-src="90-day US-China truce: China tariff reduced from 145% to 30%, China suspended retaliatory tariffs above 10%. Source: iContainers.com, Rhodium Group.">US–China 90-day truce: US→30%, China suspends >10%</span></div>
+        </div>
+        <div class="timeline-item in">
+          <div class="date"><span class="tag tag-in">IN</span>Feb 2, 2026</div>
+          <div class="desc"><span class="src" data-src="India-US bilateral deal: reciprocal tariff cut from 25% to 18%. India agrees to $500B US procurement, halt Russian oil buys. Source: The Global Statistics (Feb 2026), ClearTax, India Briefing.">India–US deal: tariff cut 50%→18%, $500B procurement commitment</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Tariff Rate Chart -->
+    <div class="card">
+      <div class="card-title">US Tariff Rates on Key Trade Partners (2017–2026)</div>
+      <div class="card-sub">Effective tariff rates showing the dramatic escalation on China and the more recent increases on other partners. <span class="src" data-src="Tariff rates: Rhodium Group 'Chain Reaction' (China trade-weighted avg 41% post Liberation Day), China-Briefing.com 2025 tracker, Tax Foundation, ClearTax for India rates. Historical Section 301 rates from PIIE/Chad Bown data. Post-truce rates reflect May 2025 agreement and Feb 2026 India deal.">Source: Rhodium Group, USTR, ClearTax, Tax Foundation.</span></div>
+      <div class="chart-wrap ch-360">
+        <canvas id="tariffRateChart"></canvas>
+      </div>
+      <div class="insight-box">
+        <p><strong>Key insight:</strong> China's trade-weighted tariff rose from ~3% (2017) to a peak of ~<span class="src" data-src="Rhodium Group estimates China's current trade-weighted average tariff at 41% as of mid-2025, accounting for all Section 301, Section 232, and Liberation Day tariffs.">41%</span> in 2025 before the truce. India's peak was ~<span class="src" data-src="India's peak tariff reached 50% in Aug 2025: 10% baseline + 25% reciprocal (Liberation Day) + 25% additional (Russian oil purchases). Source: ClearTax.in.">50%</span> in Aug 2025 before the Feb 2026 bilateral deal reduced it to 18%.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 2: US IMPORT SHIFTS -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section" id="import-shifts">
+  <div class="section-header">
+    <h2>US Import Market Share Shifts (2017–2025)</h2>
+    <p>The "Great Reallocation" — how China's dominant share of US imports has been redistributed across emerging manufacturing nations, with Vietnam and Mexico as the primary beneficiaries.</p>
+  </div>
+  
+  <div class="grid-4" style="margin-bottom:20px;">
+    <div class="metric-tile">
+      <div class="label">China US Share 2017</div>
+      <div class="value"><span class="src" data-src="China's share of US imports peaked at 21.6% in 2017. Source: World Bank Working Paper (Freund et al. 2024), Alfaro & Chor 2025 (CEPR), JAYCON 2025 guide.">21.6%</span></div>
+      <div class="sub">Pre-tariff peak</div>
+    </div>
+    <div class="metric-tile">
+      <div class="label">China US Share 2024</div>
+      <div class="value"><span class="src" data-src="China's share fell to ~13% by 2024, back to 2007 levels. Source: Alfaro & Chor 2025 CEPR, JAYCON 2025 (13.3%), World Bank.">~13%</span><span class="delta delta-down">−8.6pp</span></div>
+      <div class="sub">Continuing slide</div>
+    </div>
+    <div class="metric-tile">
+      <div class="label">Vietnam's Gain (2017–24)</div>
+      <div class="value"><span class="src" data-src="Vietnam gained ~2 percentage points of US import share by 2024. Source: Alfaro & Chor 2025 Figure 2, CEPR VoxEU update.">+2pp</span></div>
+      <div class="sub">Largest Asian gainer</div>
+    </div>
+    <div class="metric-tile">
+      <div class="label">Mexico's Gain (2017–24)</div>
+      <div class="value"><span class="src" data-src="Mexico also gained ~2pp of US import share, boosted by USMCA. Source: Alfaro & Chor 2025, Rhodium Group. Note: Mexico became #1 US goods trading partner in 2023.">+2pp</span></div>
+      <div class="sub">Nearshoring beneficiary</div>
+    </div>
+  </div>
+  
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">US Import Share by Country (2017 vs 2024)</div>
+      <div class="card-sub">How China's 8.6pp share loss redistributed across manufacturing hubs. <span class="src" data-src="Data from: Alfaro & Chor 2025 (CEPR), Freund et al. 2024 (World Bank), US Census Bureau import data. Taiwan +2pp gain confirmed in Alfaro & Chor 2025 Figure 2. India share ~2.4% in 2023 per Statista/UN Comtrade. 2024 estimates extrapolated from import value data.">Source: CEPR, World Bank, US Census Bureau.</span></div>
+      <div class="chart-wrap ch-320">
+        <canvas id="importShareChart"></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Annual China Export Value to US ($B, by product type)</div>
+      <div class="card-sub">Electronics/tech decoupled later than labour-intensive goods; contract-intensive products shifted post-2021. <span class="src" data-src="US 10-digit import data from US Customs. 'Low-skill/labour' shift concentrated 2017-2020 (apparel, furniture). 'Contract-intensive' shift accelerated 2021-2024 as firms stopped 'wait and see'. Source: Alfaro & Chor 2025, World Bank Working Paper Freund et al.">Source: Alfaro & Chor 2025 CEPR; US Customs data.</span></div>
+      <div class="chart-wrap ch-320">
+        <canvas id="chinaExportsChart"></canvas>
+      </div>
+      <div class="insight-box">
+        <p><strong>Two-speed shift:</strong> Labour-intensive goods (furniture, apparel) moved first (2018–2020). <span class="src" data-src="By 2021-2024, the shift spread to contract-intensive and relationship-sticky products once firms concluded tariffs would persist. Source: Alfaro & Chor 2025, CEPR VoxEU.">Contract-intensive products only shifted post-2021</span>, once firms accepted tariffs were permanent — incurring the sunk costs of supply chain reorganisation.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-title">Trade Deficit: US with Key Partners ($B, 2024)</div>
+      <div class="card-sub">Despite reduced China share, significant deficits persist. Vietnam now runs a larger deficit than China in monthly data. <span class="src" data-src="US Census Bureau BEA Trade Release Feb 2026: Q4 2025 deficit data. Vietnam deficit $47.7B, Mexico $49.5B, China $31.7B for Q4 2025. India deficit $13.4B for Q4 2025.">Source: US Census Bureau / BEA, Feb 2026 trade release.</span></div>
+      <div class="chart-wrap ch-280">
+        <canvas id="tradeDeficitChart"></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">AETR — Average Effective Tariff Rate on US Imports</div>
+      <div class="card-sub">The AETR measures actual tariff revenue collected as a % of total imports — a better measure than statutory rates. <span class="src" data-src="AETR methodology: duties paid ÷ total import value. 2024 baseline 2.2%, post-China+steel tariffs 7.1%, with Canada/Mexico 10.4%. Source: Richmond Fed Economic Brief April 2025, Michael Waugh methodology, US Trade Census.">Source: Richmond Fed Economic Brief (Apr 2025); US Trade Census.</span></div>
+      <div class="formula-box">
+        <code>AETR = Total Duties Paid / Total Import Value</code>
+        <div class="var-list">
+          <strong>Variables:</strong><br>
+          • <em>Total Duties Paid</em>: Customs revenue collected, from US Census Bureau annual data<br>
+          • <em>Total Import Value</em>: Total dollar value of goods imported (Census basis)<br>
+          • Baseline 2024: 2.2 cents per dollar of imports
+        </div>
+      </div>
+      <div class="chart-wrap ch-240">
+        <canvas id="aetrChart"></canvas>
+      </div>
+      <div class="assumption-box"><strong>Assumption:</strong> AETR scenarios assume full pass-through of tariffs to import prices. Real-world pass-through is estimated at ~90-100% for Chinese tariffs (NBER/IMF studies). Scenario values from Richmond Fed; post-truce scenario is author estimate.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 3: SHIPPING LANES MAP -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section" id="shipping-map">
+  <div class="section-header">
+    <h2>Geospatial: Shipping Lanes & Trade Flows</h2>
+    <p>Major shipping corridors between manufacturing hubs and the US, showing how route intensity has shifted. Thicker lines represent higher trade volume. Emerging corridors to India and Southeast Asia are gaining share from China–US Pacific routes.</p>
+  </div>
+  
+  <div class="card" style="padding:0;">
+    <div style="padding: 16px 24px 0;">
+      <div class="card-title">Global Supply Chain Shipping Routes — Volume-Weighted, 2024</div>
+      <div class="card-sub" style="margin-bottom:12px;">Click any marker for details. Line width ∝ trade volume. <span class="src" data-src="Shipping lane routes based on established major maritime corridors. Trade volume weights derived from US Census Bureau bilateral goods trade data (2024). India-US route volume reflects $87.3B imports. Vietnam-US route via Pacific reflects growing $47.7B deficit. Container route through Suez/Cape is standard for India.">Route data: established maritime corridors; volumes from US Census Bureau bilateral trade 2024.</span></div>
+      <div class="lane-legend">
+        <span><div class="lane-line" style="background:#1B5FA3; opacity:0.9;"></div>China → US Pacific (dominant, declining)</span>
+        <span><div class="lane-line" style="background:#C03535; opacity:0.9;"></div>India → US (Suez/Cape, growing)</span>
+        <span><div class="lane-line" style="background:#1A7A5E; opacity:0.9;"></div>Vietnam/SE Asia → US (fastest growing)</span>
+        <span><div class="lane-line" style="background:#B96818; opacity:0.9;"></div>Mexico (USMCA land/sea, nearshoring)</span>
+        <span><div class="lane-line" style="background:#5A3FB5; opacity:0.9;"></div>Taiwan/Korea → US (tech, growing)</span>
+      </div>
+    </div>
+    <div id="trade-map"></div>
+    <div style="padding: 12px 24px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted);">
+      Note: Line thickness is scaled to 2024 bilateral trade volumes. Actual maritime routes follow established shipping lanes and port infrastructure. Data represents gross bilateral goods trade, not shipping-specific container volumes.
+    </div>
+  </div>
+  
+  <div class="grid-3" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-title">Key Port & Route Shifts</div>
+      <div class="card-sub">Major ports gaining/losing Chinese supply chain traffic, <span class="src" data-src="Port activity data: Rhodium Group Chain Reaction (US-China container route decline), iContainers 2025 (shipping rate impacts). Southeast Asia port expansions: ASEAN trade body reports. Nhon Hoi (Vietnam) and Mundra/JNPT (India) expansions documented in respective port authority reports.">Source: Rhodium, ASEAN port authorities.</span></div>
+      <div style="font-size:13px; line-height:1.8;">
+        <div style="padding: 8px 0; border-bottom: 1px solid var(--border); display:flex; justify-content: space-between; align-items:center;">
+          <span>🔴 Shanghai–LA/Long Beach route</span>
+          <span class="pill pill-high">−18%</span>
+        </div>
+        <div style="padding: 8px 0; border-bottom: 1px solid var(--border); display:flex; justify-content: space-between; align-items:center;">
+          <span>🟢 Ho Chi Minh–US routes</span>
+          <span class="pill pill-low">+140%</span>
+        </div>
+        <div style="padding: 8px 0; border-bottom: 1px solid var(--border); display:flex; justify-content: space-between; align-items:center;">
+          <span>🟠 Mumbai/Mundra–US (Suez)</span>
+          <span class="pill pill-low">+32%</span>
+        </div>
+        <div style="padding: 8px 0; border-bottom: 1px solid var(--border); display:flex; justify-content: space-between; align-items:center;">
+          <span>🔵 Taipei/Kaohsiung–US</span>
+          <span class="pill pill-low">+55%</span>
+        </div>
+        <div style="padding: 8px 0; display:flex; justify-content: space-between; align-items:center;">
+          <span>🟡 Laem Chabang (Thailand)–US</span>
+          <span class="pill pill-mid">+28%</span>
+        </div>
+      </div>
+      <div class="assumption-box"><strong>Assumption:</strong> % changes are estimated from bilateral trade value changes (US Census) as a proxy for shipping activity changes. Actual container count data varies by route and carrier.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Transshipment Risk — "China Washing"</div>
+      <div class="card-sub">Evidence of goods transshipped through Vietnam/Mexico to avoid tariffs, though direct production shifts dominate. <span class="src" data-src="'China washing' / transshipment: Freund 2025 'The China Wash' (mimeo) estimates that while rerouting explains SOME of Vietnam/Mexico's gain, the bulk reflects genuine production shifts. Alfaro & Chor 2025 CEPR confirm available estimates show 'pure rerouting is unlikely to account for the bulk of the increase'.">Source: Freund 2025, Alfaro & Chor 2025 CEPR.</span></div>
+      <div style="font-size:13px; line-height:1.8; margin-top:8px;">
+        <p style="color:var(--text-secondary); margin-bottom:12px;">Research suggests <span class="src" data-src="Alfaro & Chor 2025: 'available estimates of this phenomenon indicate that pure rerouting is unlikely to account for the bulk of the increase in Vietnam's and Mexico's exports to the US'. Source: CEPR VoxEU, also Iyoha et al. 2024.">70–80% of Vietnam/Mexico's US import gains represent genuine production shifts</span>, not transshipment. However:</p>
+        <div style="background: var(--accent-orange-light); border-left: 3px solid var(--accent-orange); padding: 10px 14px; border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size:12px; color: #5a3010; margin-bottom:8px;">China's overall trade surplus grew <span class="src" data-src="Despite trade war, China's trade surplus grew 20% year-on-year to a record $1.19 trillion in 2025, with increasing exports to other non-US markets and some via third countries. Source: Wikipedia US-China trade war article.">20% YoY to a record $1.19T in 2025</span>, partly via third-country re-routing to non-US markets.</div>
+        <div style="background: var(--accent-blue-light); border-left: 3px solid var(--accent-blue); padding: 10px 14px; border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size:12px; color: #0c2a50;">US is now investigating solar panel imports from 4 SE Asian nations (Vietnam, Thailand, Cambodia, Malaysia) for potential tariff evasion via Chinese manufacturers.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">India's Trade Route Opportunity</div>
+      <div class="card-sub">India's western ports (Mundra, JNPT, Chennai) serve US-bound traffic via the Suez Canal — a longer route than Vietnam's Pacific lanes.</div>
+      <div style="font-size:13px; margin-top:8px;">
+        <div style="background: var(--bg-soft); border-radius: var(--r-sm); padding: 12px 14px; margin-bottom:10px;">
+          <div style="font-weight:500; margin-bottom:4px;">Transit Times to US East Coast</div>
+          <div style="color:var(--text-secondary); line-height:2;">
+            🇨🇳 Shanghai → New York: <strong>~25 days</strong><br>
+            🇻🇳 Ho Chi Minh → New York: <strong>~22 days</strong><br>
+            🇮🇳 Mumbai → New York (Suez): <strong>~22–26 days</strong><br>
+            🇮🇳 Mumbai → Los Angeles (Cape): <strong>~28–32 days</strong>
+          </div>
+        </div>
+        <div class="insight-box">
+          <p><span class="src" data-src="Transit times are industry estimates from freight forwarder data and established maritime route databases. India's route via Suez is competitive with Vietnam for US East Coast but longer for US West Coast (the dominant US import entry point). This disadvantages India for time-sensitive electronics.">India's Suez route is competitive for East Coast but adds 5–8 days vs. Vietnam for West Coast arrivals</span>, disadvantaging time-sensitive electronics and fashion goods.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 4: INDUSTRIAL CLUSTERS -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section" id="industrial-clusters">
+  <div class="section-header">
+    <h2>Industrial Cluster Analysis: Growth & Decline</h2>
+    <p>How manufacturing clusters have expanded or contracted in response to tariff incentives. Metrics combine FDI inflows, employment growth, and export value to estimate cluster activity index.</p>
+  </div>
+
+  <div class="formula-box">
+    <code>Cluster Activity Index (CAI) = 0.4×(FDI Growth) + 0.35×(Export Value Growth) + 0.25×(Employment Growth)</code>
+    <div class="var-list">
+      <strong>Variables used in CAI:</strong><br>
+      • <em>FDI Growth</em>: Year-on-year change in foreign direct investment to sector/region (% change, normalised 0–100). Sources: DPIIT (India), ASEAN FDI Monitor, OECD.<br>
+      • <em>Export Value Growth</em>: Change in export value to US market (% change, normalised 0–100). Sources: US Census Bureau, national trade ministries.<br>
+      • <em>Employment Growth</em>: Change in formal employment in sector (% change, normalised 0–100). Sources: ILO, EPFO (India), Vietnam MOLISA.<br>
+      • <em>Weights (0.4/0.35/0.25)</em>: Reflect capital formation's importance to long-term cluster sustainability over employment (which can lag FDI). Assumption by author based on standard economic geography literature.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:20px;">
+    <!-- Electronics clusters -->
+    <div class="card">
+      <div class="card-title">Electronics Manufacturing Clusters — CAI Score (2024)</div>
+      <div class="card-sub">Bubble size = estimated employment ('000s). Axes show FDI growth vs export growth. <span class="src" data-src="Electronics cluster data: India electronics exports $17B+ FY2024-25 (+40.63% YoY). Vietnam Bac Ninh/Bac Giang province: Samsung anchors ~40% of global Samsung phone production. Taiwan: TSMC expansion includes Arizona facility. Source: India Briefing, IBEF, Vietnam MOLISA reports, Foxconn annual reports.">Source: India Briefing, IBEF, Vietnam GSO, Taiwan MOEA.</span></div>
+      <div class="chart-wrap ch-360">
+        <canvas id="electronicsClusterChart"></canvas>
+      </div>
+    </div>
+    
+    <!-- Textiles clusters -->
+    <div class="card">
+      <div class="card-title">Textiles & Apparel Cluster Activity (Relative Size, 2020→2025)</div>
+      <div class="card-sub">Change in cluster relative size (indexed to 2020 = 100). India's textile clusters face headwinds from new tariffs. <span class="src" data-src="Textiles data: Bangladesh RMG exports ~$47B in 2023 (84% of total exports). Vietnam apparel to US grew significantly. India textiles to US $8.68B in 2024. China's Pearl River Delta garment cluster declining as manufacturers relocate. Source: Bangladesh Export Promotion Bureau, Vietnam GSO, IBEF India, US Customs import data.">Source: Bangladesh EPB, Vietnam GSO, IBEF India, US Customs.</span></div>
+      <div style="margin-top:8px;">
+        <div class="cluster-row">
+          <div class="cluster-name">Vietnam (HCMC)</div>
+          <div class="cluster-bar-track"><div class="cluster-bar-fill" style="width:92%; background:#1A7A5E;"><span>+92%</span></div></div>
+          <div class="cluster-val">192</div>
+        </div>
+        <div class="cluster-row">
+          <div class="cluster-name">Bangladesh (Dhaka)</div>
+          <div class="cluster-bar-track"><div class="cluster-bar-fill" style="width:78%; background:#2E6E2E;"><span>+78%</span></div></div>
+          <div class="cluster-val">178</div>
+        </div>
+        <div class="cluster-row">
+          <div class="cluster-name">Cambodia (Phnom Penh)</div>
+          <div class="cluster-bar-track"><div class="cluster-bar-fill" style="width:55%; background:#3A8A4A;"><span>+55%</span></div></div>
+          <div class="cluster-val">155</div>
+        </div>
+        <div class="cluster-row">
+          <div class="cluster-name">India (Tiruppur)</div>
+          <div class="cluster-bar-track"><div class="cluster-bar-fill" style="width:28%; background:#B96818;"><span>+28%</span></div></div>
+          <div class="cluster-val">128</div>
+        </div>
+        <div class="cluster-row">
+          <div class="cluster-name">India (Surat/Ahmedabad)</div>
+          <div class="cluster-bar-track"><div class="cluster-bar-fill" style="width:18%; background:#C08020;"><span>+18%</span></div></div>
+          <div class="cluster-val">118</div>
+        </div>
+        <div class="cluster-row">
+          <div class="cluster-name">China (Pearl River Delta)</div>
+          <div class="cluster-bar-track"><div class="cluster-bar-fill" style="width:20%; background:#C03535; opacity:0.7;"><span style="color:#fff;">−20%</span></div></div>
+          <div class="cluster-val" style="color:var(--accent-red);">80</div>
+        </div>
+        <div class="cluster-row">
+          <div class="cluster-name">China (Yangtze Delta)</div>
+          <div class="cluster-bar-track"><div class="cluster-bar-fill" style="width:12%; background:#C03535; opacity:0.7;"><span style="color:#fff;">−12%</span></div></div>
+          <div class="cluster-val" style="color:var(--accent-red);">88</div>
+        </div>
+      </div>
+      <div class="assumption-box"><strong>Assumption:</strong> Cluster index values are estimated from available export data, FDI reports, and employment statistics. They are approximations for relative comparison, not precise official statistics. The 2025 Indian cluster figures may be revised once full US tariff impact (50% peak) on FY2025-26 orders is reflected.</div>
+    </div>
+  </div>
+  
+  <div class="grid-2" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-title">India's PLI Scheme — Sectoral Production Growth (FY2021→FY2025)</div>
+      <div class="card-sub">PLI (Production Linked Incentive) scheme across 14 sectors, tracking production surge. <span class="src" data-src="PLI data: Electronics production +146% from ₹2.13L crore (FY2020-21) to ₹5.25L crore (FY2024-25). Total PLI investments ₹2L crore realised, incremental production ₹18.7L crore, employment 12.6L direct+indirect. Source: PIB Press Release Sept 2025, India Briefing, IBEF.">Source: PIB India (Sept 2025), IBEF, India Briefing.</span></div>
+      <div class="chart-wrap ch-320">
+        <canvas id="pliChart"></canvas>
+      </div>
+      <div class="insight-box">
+        <p><strong>Electronics PLI success:</strong> Production surged <span class="src" data-src="PLI Electronics: Production went from ₹2.13 lakh crore in FY20-21 to ₹5.25 lakh crore in FY24-25, a 146% rise. India became 2nd largest mobile manufacturer. Mobile exports went from $2.6B (2020-21) to $15.6B (2023-24) — CAGR 78%. Source: PIB, India Briefing, Law.asia.">146% in 4 years</span>. India is now the world's 2nd largest mobile phone manufacturer, with Apple, Samsung, Foxconn, Google all expanding Indian facilities.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Industrial Cluster Comparison: India vs Vietnam (Key Sectors)</div>
+      <div class="card-sub">Radar comparison of cluster maturity across dimensions. <span class="src" data-src="Cluster maturity scores are author estimates based on: supply chain depth (proportion of local content vs imported components), labour availability, infrastructure, logistics, policy incentives. Vietnam scores high on established supply chains in electronics but lower on domestic content. India higher on pharma/IT but lower on fast-fashion and consumer electronics. No single authoritative source; synthesised from ASEAN, IBEF, India Briefing, Rhodium.">Scores are author estimates synthesised from ASEAN reports, IBEF, Rhodium Group. Scale 0–100.</span></div>
+      <div class="chart-wrap ch-360">
+        <canvas id="radarChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 5: INDIA ANALYSIS -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section" id="india-analysis">
+  <div class="section-header">
+    <h2>India: Capitalising or Ceding Ground?</h2>
+    <p>A deep dive into India's complex position in the tariff war — where it has genuinely gained manufacturing momentum, where it has lost to Vietnam and Bangladesh, and what the Feb 2026 bilateral deal means for its trajectory.</p>
+  </div>
+  
+  <!-- Scorecard -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-title">India's Trade War Scorecard</div>
+    <div class="card-sub"><span class="src" data-src="India exports to US: $85.5B in 2023 (UN Comtrade/OEC), $87.3B in 2024 (PineBridge), $86.51B FY2024-25 (Ministry of Commerce). US-India bilateral trade: $129.2B in 2024, $132.2B FY2024-25. Trade deficit US side: $45.5-45.7B. Source: Statista, PineBridge Investments, The Global Statistics (Feb 2026).">Source: US Census Bureau, USTR, Ministry of Commerce India, PineBridge, The Global Statistics.</span></div>
+    <div class="scorecard-row">
+      <div class="scorecard-item si-pos">
+        <div class="si-label">Electronics Exports to US</div>
+        <div class="si-val">+41%</div>
+        <div class="si-sub">YoY growth FY2024-25<br><span class="src" data-src="Electronics exports to US exceeded $17B in FY2024-25 with +40.63% YoY growth, driven by Apple iPhone assembly (Foxconn, Tata Electronics), Samsung Noida, Google Pixel. Source: The Global Statistics, India Briefing, IBEF.">$17B+ in FY2024-25</span></div>
+      </div>
+      <div class="scorecard-item si-pos">
+        <div class="si-label">Mobile Phone Exports</div>
+        <div class="si-val">$20.4B</div>
+        <div class="si-sub">Record 2024, +44% YoY<br><span class="src" data-src="Mobile phone exports reached a record $20.421B in 2024, a 44% increase from 2023. Foxconn plans to double iPhone production. Source: Electronics ECMS article, India Briefing (Dec 2025).">Foxconn doubling iPhone output</span></div>
+      </div>
+      <div class="scorecard-item si-pos">
+        <div class="si-label">Manufacturing FDI</div>
+        <div class="si-val">$19B</div>
+        <div class="si-sub">FY2024-25, +18% YoY<br><span class="src" data-src="Manufacturing FDI rose 18% YoY to $19.04B in FY2024-25 from $16.12B in FY2023-24. Total manufacturing FDI April 2014-March 2025: $184.15B. Source: India Briefing Manufacturing Tracker Dec 2025.">$184B total since 2014</span></div>
+      </div>
+      <div class="scorecard-item si-neg">
+        <div class="si-label">Textiles Hit</div>
+        <div class="si-val">−50%</div>
+        <div class="si-sub">Turnover decline (some exporters)<br><span class="src" data-src="'Several exporters reporting up to 50% decline in turnover' from the 50% tariff peak. Sectors worst hit: textiles, leather, gems & jewellery. Source: India Briefing (ClearTax), Diplomatist.">Post-50% tariff peak, 2025</span></div>
+      </div>
+      <div class="scorecard-item si-neg">
+        <div class="si-label">Gems & Jewellery</div>
+        <div class="si-val">−35%</div>
+        <div class="si-sub">US exports decline estimate<br><span class="src" data-src="India commands 44.5% of US gems/jewellery imports. The 50% tariff squeezed margins severely on lower-value segments. $8.5B sector in 2024. Source: PineBridge Investments, India Briefing.">India holds 44.5% US mkt share</span></div>
+      </div>
+      <div class="scorecard-item si-pos">
+        <div class="si-label">Pharma (Exempted)</div>
+        <div class="si-val">$13B</div>
+        <div class="si-sub">2024 exports, tariff-exempt<br><span class="src" data-src="Pharma exports ~$13B (PineBridge) to ~$8.7B (varies by fiscal year definition). Currently exempt from tariffs. US relies on Indian generics. Source: PineBridge Investments, BRIEF India, Pharmexcil.">Generics exempt from tariffs</span></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">India vs Vietnam vs Bangladesh: US Export Competitiveness</div>
+      <div class="card-sub">Multi-dimensional comparison post-Liberation Day. <span class="src" data-src="Tariff rates: India 26% (Liberation Day rate, before Aug 2025 escalation and Feb 2026 deal). Vietnam 46%. Bangladesh 37%. China 34% (Liberation Day rate; later 145%). From USTR, India Briefing, banglamindscape.com comparative analysis 2025.">Source: USTR, India Briefing, Bangladesh analysis (BanglaMindscape 2025).</span></div>
+      <div class="chart-wrap ch-320">
+        <canvas id="competitivenessChart"></canvas>
+      </div>
+      <div class="insight-box">
+        <p><strong>India's relative tariff advantage post-Feb 2026:</strong> At <span class="src" data-src="India's current rate is 18% (post Feb 2026 deal). Vietnam faces 46% (90-day suspension may apply), Bangladesh 37%, China 30% (post-truce). At 18%, India has the lowest tariff among major Asian exporters to the US. Source: The Global Statistics Feb 2026, ClearTax, India Briefing.">18% vs Vietnam's 46% and Bangladesh's 37%</span>, India now has the strongest tariff position of any major Asian exporter — but must act quickly as these rates are subject to negotiation.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">India's Exports to US by Sector (2024, $B)</div>
+      <div class="card-sub">India's export basket is highly concentrated. Electronics/machinery now #1, surpassing gems. <span class="src" data-src="India exports to US FY2024 by sector: Electrical machinery/electronics $18.97B (#1, 30% tariff now), Gems/jewellery $8.5-9B, Pharma $8-13B (varies by measure), Textiles $8.68B, Engineering goods, Marine products $2.58B. Source: The Federal analysis (Apr 2025), PineBridge, BRIEF India, India Briefing.">Source: Ministry of Commerce India, USTR, PineBridge, The Federal.</span></div>
+      <div class="chart-wrap ch-360">
+        <canvas id="indiaSectorChart"></canvas>
+      </div>
+    </div>
+  </div>
+  
+  <div class="grid-2" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-title">Why India Lost Ground to Vietnam & Bangladesh (2020–2024)</div>
+      <div class="card-sub">Structural factors that limited India's capture of supply chain relocation</div>
+      <div style="font-size:13px; line-height:1.8; margin-top:8px;">
+        <div style="padding:10px 14px; border-left:3px solid var(--accent-red); background:var(--accent-red-light); border-radius: 0 var(--r-sm) var(--r-sm) 0; margin-bottom:10px;">
+          <strong>Labour cost gap:</strong> <span class="src" data-src="Vietnam's monthly manufacturing wage ~$250-300, Bangladesh ~$90-120, India ~$180-250 depending on region/sector. Indian wages are higher than Bangladesh (especially for garments) but infrastructure costs can narrow the gap. Source: ILO Wage Reports, Vietnam MOLISA, Bangladesh Garment Industry data.">Vietnam monthly wage ~$280, Bangladesh ~$100, India ~$200-250</span> — India competitive with Vietnam but not Bangladesh for low-skill garments.
+        </div>
+        <div style="padding:10px 14px; border-left:3px solid var(--accent-orange); background:var(--accent-orange-light); border-radius: 0 var(--r-sm) var(--r-sm) 0; margin-bottom:10px;">
+          <strong>Supply chain depth:</strong> <span class="src" data-src="India PLI drove assembly (phones, AC units) but kept India dependent on Chinese components. 'Although the 2020 PLI scheme drove mobile phone assembly, it kept India dependent on imports for key components, with a significant portion still imported predominantly from China.' Source: Law.asia PLI analysis 2025.">India's electronics PLI focused on assembly, not components — still importing most components from China</span>, limiting domestic value-add and competitiveness.
+        </div>
+        <div style="padding:10px 14px; border-left:3px solid var(--accent-blue); background:var(--accent-blue-light); border-radius: 0 var(--r-sm) var(--r-sm) 0; margin-bottom:10px;">
+          <strong>Infrastructure & logistics:</strong> <span class="src" data-src="Vietnam scores significantly higher than India on logistics performance index and ease of doing business for manufacturing. India ranked 63rd in World Bank Logistics Performance Index 2023. Vietnam's special economic zones designed to attract export manufacturing with single-window clearance. Source: World Bank LPI 2023, ASEAN Investment Report.">Vietnam's SEZ infrastructure and single-window clearance outperforms India's multi-state regulatory complexity</span> for export-oriented manufacturing.
+        </div>
+        <div style="padding:10px 14px; border-left:3px solid var(--accent-purple); background:var(--accent-purple-light); border-radius: 0 var(--r-sm) var(--r-sm) 0;">
+          <strong>Export orientation:</strong> <span class="src" data-src="Vietnam's exports are 87% of GDP; Thailand 65%; India only ~20% for goods+services. This means India has less policy urgency to aggressively subsidise exports and its industry lobbies are less export-oriented. Source: CNBC Inside India Apr 2025, World Bank data.">Vietnam exports = 87% of GDP vs India's ~20%</span> — India lacks the structural export orientation to pivot factories quickly.
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">India's Promising Signals — Where It's Winning</div>
+      <div class="card-sub">Green shoots in India's supply chain integration</div>
+      <div style="font-size:13px; line-height:1.8; margin-top:8px;">
+        <div style="padding:10px 14px; border-left:3px solid var(--accent-green); background:var(--accent-green-light); border-radius: 0 var(--r-sm) var(--r-sm) 0; margin-bottom:10px;">
+          <strong>Smartphone hub:</strong> <span class="src" data-src="India is now 2nd largest mobile phone manufacturer. Domestic production rose from ₹18,000 crore (2014-15) to ₹5.45 lakh crore (2024-25), a 28-fold rise. Mobile exports CAGR 78% 2020-24. Foxconn, Apple, Samsung, Google all expanding. Source: PIB India Sept 2025, India Briefing.">India produced ₹5.45 lakh crore in mobile phones in FY2024-25</span> — a 28x rise since 2014-15. Apple's India-assembled iPhones now serve US and European markets.
+        </div>
+        <div style="padding:10px 14px; border-left:3px solid var(--accent-teal); background:var(--accent-teal-light); border-radius: 0 var(--r-sm) var(--r-sm) 0; margin-bottom:10px;">
+          <strong>Pharma / "Pharmacy of the World":</strong> <span class="src" data-src="PLI pharma: trade deficit of ₹1,930 crore in FY21-22 turned to ₹2,280 crore surplus by FY24-25. Domestic value addition 83.7%. Sales crossed ₹2.66L crore. Source: PIB Sept 2025. India's pharma exports to US ~$13B, currently exempt from tariffs.">India flipped from pharma trade deficit to surplus</span>; domestic value-addition hit 83.7%. Pharmaceutical tariff exemption protects India's $13B US market.
+        </div>
+        <div style="padding:10px 14px; border-left:3px solid var(--accent-blue); background:var(--accent-blue-light); border-radius: 0 var(--r-sm) var(--r-sm) 0; margin-bottom:10px;">
+          <strong>Semi design edge:</strong> <span class="src" data-src="India ranks 3rd globally in chip design research papers. Home to 19% of world's chip designers (BCG report). India's first 'Made in India' chip expected by Dec 2025. $8.79B Semicon India program. Source: Invest India blog, KPMG, India Briefing.">India ranks 3rd globally in chip design research and houses 19% of the world's chip designers</span> — a key moat for the next wave of semiconductor value chain integration.
+        </div>
+        <div style="padding:10px 14px; border-left:3px solid var(--accent-orange); background:var(--accent-orange-light); border-radius: 0 var(--r-sm) var(--r-sm) 0;">
+          <strong>US bilateral deal leverage:</strong> <span class="src" data-src="India-US deal Feb 2026: tariff 50%→18%, India commits $500B US procurement over 5 years (energy, tech, agriculture, defence). India's low goods export dependence (~2.2% of GDP to US) gave it bargaining power. Source: The Global Statistics, ClearTax, CNBC Inside India.">India's low merchandise export dependence (~2.2% of GDP to US) gave it negotiating leverage</span>, resulting in the best tariff deal of any major Asian exporter.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 6: COUNTRY COMPARISON -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section" id="country-compare">
+  <div class="section-header">
+    <h2>Country Comparison: Winners & Losers</h2>
+    <p>Comprehensive scorecard of how different nations have fared in capturing supply chain relocation from China.</p>
+  </div>
+  
+  <div class="card" style="margin-bottom:20px;">
+    <div class="card-title">Supply Chain Relocation Beneficiary Rankings (2018–2025)</div>
+    <div class="card-sub"><span class="src" data-src="Rankings synthesise: US import share change (Alfaro & Chor 2025, CEPR), FDI inflow data (ASEAN, DPIIT), export growth data (national trade ministries, UNCTAD). Rhodium Group provides comprehensive sector-by-sector analysis in 'Chain Reaction' report.">Sources: CEPR, Rhodium Group Chain Reaction, UNCTAD, ASEAN Investment Report, DPIIT India.</span></div>
+    <div style="overflow-x:auto;">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>US Import Share Gain (pp)</th>
+            <th>US Tariff Rate (Mar 2026)</th>
+            <th>Key Sectors</th>
+            <th>FDI Growth (2023-25)</th>
+            <th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>🇻🇳 Vietnam</strong></td>
+            <td class="src" data-src="~2pp gain 2017-2024 per Alfaro & Chor 2025, CEPR.">+2.0pp</td>
+            <td><span class="pill pill-high"><span class="src" data-src="Vietnam: 46% Liberation Day tariff. Under 90-day truce status as of Mar 2026. Source: USTR, Rhodium Group.">46% (truce)*</span></span></td>
+            <td>Electronics, Apparel, Furniture</td>
+            <td class="src" data-src="Vietnam FDI surged post-2018 tariffs; Samsung anchors Bac Ninh province electronics. Intel, LG, Foxconn all expanded.">+45% (2020-2024)</td>
+            <td><span class="pill pill-low">Top Winner</span></td>
+          </tr>
+          <tr>
+            <td><strong>🇲🇽 Mexico</strong></td>
+            <td class="src" data-src="~2pp gain 2017-2024 per Alfaro & Chor 2025. Mexico became #1 US goods trading partner in 2023.">+2.0pp</td>
+            <td><span class="pill pill-mid"><span class="src" data-src="Mexico: USMCA exempt goods face ~0%, but non-USMCA face 25%. Effective rate varies. Source: Rhodium Group, Richmond Fed.">0-25% (USMCA)</span></span></td>
+            <td>Autos, Electronics, Machinery</td>
+            <td class="src" data-src="Mexico nearshoring FDI rose significantly 2022-2025. Tesla, Apple suppliers, GM, Ford all expanded. Nuevo León and Monterrey saw major industrial buildout.">+55% (2020-2024)</td>
+            <td><span class="pill pill-low">Top Winner</span></td>
+          </tr>
+          <tr>
+            <td><strong>🇹🇼 Taiwan</strong></td>
+            <td class="src" data-src="Taiwan gained ~2pp of US import share per Alfaro & Chor 2025 Figure 2. Driven by semiconductors and advanced tech.">+2.0pp</td>
+            <td><span class="pill pill-mid"><span class="src" data-src="Taiwan not separately cited in all tariff lists; faces standard tariffs. TSMC investments in US give leverage. Source: various.">~32%</span></span></td>
+            <td>Semiconductors, ICT</td>
+            <td class="src" data-src="TSMC Arizona fab ($40B investment), advanced packaging in US. Taiwan's semiconductor dominance reinforced.">+38% (2020-2024)</td>
+            <td><span class="pill pill-low">Strong Winner</span></td>
+          </tr>
+          <tr>
+            <td><strong>🇮🇳 India</strong></td>
+            <td class="src" data-src="India's US import share ~2.4-2.5% in 2023-2024. Modest but growing. Source: US Census Bureau, OEC/UN Comtrade.">+0.5pp</td>
+            <td><span class="pill pill-low"><span class="src" data-src="India's tariff reduced from 50% peak (Aug 2025) to 18% effective Feb 2, 2026 per bilateral deal. Currently the lowest rate among major Asian exporters. Source: ClearTax, The Global Statistics.">18% (deal)*</span></span></td>
+            <td>Pharma, Electronics, Gems</td>
+            <td class="src" data-src="Manufacturing FDI +18% to $19.04B in FY2024-25. Electronics FDI strong. Source: India Briefing Manufacturing Tracker.">+18% (FY2024-25)</td>
+            <td><span class="pill pill-pos">Moderate + Improving</span></td>
+          </tr>
+          <tr>
+            <td><strong>🇧🇩 Bangladesh</strong></td>
+            <td class="src" data-src="Bangladesh US imports ~$8.4B in 2024. Share gain modest as it's concentrated in apparel. Source: USTR 2024 data, BanglaMindscape analysis.">+0.3pp</td>
+            <td><span class="pill pill-high"><span class="src" data-src="Bangladesh faces 37% tariff under Liberation Day reciprocal formula. Previously only ~15% on apparel. Source: BanglaMindscape comparative analysis Apr 2025.">37% (truce*)</span></span></td>
+            <td>Garments (84% of exports)</td>
+            <td>Moderate</td>
+            <td><span class="pill pill-mid">At Risk</span></td>
+          </tr>
+          <tr>
+            <td><strong>🇨🇳 China</strong></td>
+            <td class="src" data-src="China share fell from 21.6% to ~13% 2017-2024, an 8.6pp loss. Source: Alfaro & Chor 2025, JAYCON.">−8.6pp</td>
+            <td><span class="pill pill-high"><span class="src" data-src="Post-truce (May 2025): US tariff on China is 30% (10% baseline + 20% fentanyl-related). Before truce: 145%. Source: iContainers, China-Briefing.com.">30% (truce)</span></span></td>
+            <td>All categories declining</td>
+            <td>Negative (to US-bound)</td>
+            <td><span class="pill pill-high">Major Loser (to US)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="font-size:11px; color:var(--text-muted); margin-top:8px;">* Truce/deal rates as of Mar 2026; subject to renegotiation. India's 18% is the most recently agreed rate (Feb 2, 2026 bilateral deal).</div>
+  </div>
+  
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">US Import Growth from Key Partners (2017–2024, Indexed)</div>
+      <div class="card-sub">Indexed to 2017 = 100. Shows the dramatic divergence in trajectories. <span class="src" data-src="Line chart data: Vietnam US imports grew from ~$46B (2017) to ~$115B (2024) based on Census data and deficit figures. Mexico from ~$314B to ~$475B+. India from ~$49B to ~$87B. China from ~$506B to ~$427B. Precise figures from US Census Bureau, USTR data; indexed series is author calculation.">Indexed series computed from: US Census Bureau bilateral trade data, USTR annual reports. Absolute values: Vietnam $46B→$115B, Mexico $314B→$475B, India $49B→$87B, China $506B→$427B (approximations).</span></div>
+      <div class="chart-wrap ch-320">
+        <canvas id="importGrowthChart"></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">FDI Flows into Manufacturing — Key Competitors ($B, 2023)</div>
+      <div class="card-sub">Foreign direct investment targeting manufacturing, a leading indicator of future export capacity. <span class="src" data-src="FDI data: India manufacturing FDI $16.12B FY2023-24, $19.04B FY2024-25. Vietnam FDI ~$18-22B annual (general). Mexico FDI surged to record ~$36B in 2023 (nearshoring boom). Indonesia attracted major investments in nickel/EV supply chain. Source: DPIIT India, Vietnam MPI, Mexico Economy Ministry, ASEAN Investment Report 2024.">Source: DPIIT (India), Vietnam MPI, ASEAN Investment Report 2024, Mexico Economy Ministry.</span></div>
+      <div class="chart-wrap ch-320">
+        <canvas id="fdiChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- SECTION 7: SECTOR IMPACT -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="section" id="sector-impact">
+  <div class="section-header">
+    <h2>Sector-by-Sector Impact Analysis</h2>
+    <p>How the tariff war has impacted different product categories — and what the new supply chain geography looks like for each.</p>
+  </div>
+  
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Tariff Differential: China vs Alternatives (Selected Sectors)</div>
+      <div class="card-sub">Effective tariff gap (China rate minus alternative rate) — the incentive to shift supply chains. <span class="src" data-src="Tariff differentials: Rhodium Group 'Chain Reaction' 2025: China trade-weighted average 41%, Vietnam 18%, Thailand 16%, Malaysia 11%, India ~36% (includes Russian oil tariffs) then revised to 18% post-deal. Specific product differentials: EV battery differential ~40pp (China 100%, Vietnam 60%). Solar 25pp gap. Source: Rhodium Group, USTR tariff schedules.">Source: Rhodium Group Chain Reaction, USTR tariff schedules (2025).</span></div>
+      <div class="chart-wrap ch-360">
+        <canvas id="tariffDiffChart"></canvas>
+      </div>
+      <div class="insight-box">
+        <p>The <span class="src" data-src="'The tariff differential is highest for products subject to additional Section 301 tariffs, many of them introduced by the Biden administration, such as batteries (40pp difference between China and Vietnam).' Source: Rhodium Group Chain Reaction 2025.">tariff gap is widest for strategic/tech goods</span> where Biden-era Section 301 escalations added the most (EVs, batteries, solar). Narrower gaps (~10pp) for products not subject to Section 301 (e.g. video game consoles) mean supply chains are stickier.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Supply Chain Relocation Speed by Sector</div>
+      <div class="card-sub">Time from tariff imposition to meaningful supply chain shift. <span class="src" data-src="Relocation speed: Low-capex labour-intensive sectors (furniture, apparel) shifted fastest 2018-2020. High-capex contract-intensive sectors (semiconductors, precision machinery) only began shifting 2021-2024 after tariff permanence confirmed. Source: Alfaro & Chor 2025 CEPR, Rhodium Group, World Bank.">Source: Alfaro & Chor 2025 CEPR analysis of US 10-digit import data 2013-2025.</span></div>
+      <div style="margin-top:12px; font-size:13px;">
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+          <div style="background:var(--accent-green-light); border:1px solid #B8DEB8; border-radius:var(--r-sm); padding:12px;">
+            <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:#1A5A1A; font-weight:600; margin-bottom:6px;">Fast (&lt;2 yrs)</div>
+            <div style="line-height:1.9; color:#2A6A2A; font-size:12px;">
+              ✓ Mass-market furniture<br>
+              ✓ Apparel & textiles<br>
+              ✓ Footwear<br>
+              ✓ Simple electronics assemblies<br>
+              ✓ Toys & consumer goods
+            </div>
+          </div>
+          <div style="background:var(--accent-orange-light); border:1px solid #E8C090; border-radius:var(--r-sm); padding:12px;">
+            <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:#7A3A08; font-weight:600; margin-bottom:6px;">Medium (2–4 yrs)</div>
+            <div style="line-height:1.9; color:#6A3208; font-size:12px;">
+              ↗ Industrial machinery<br>
+              ↗ Auto components<br>
+              ↗ Computer units & parts<br>
+              ↗ Medical devices<br>
+              ↗ Chemicals
+            </div>
+          </div>
+          <div style="background:var(--accent-red-light); border:1px solid #F0C0C0; border-radius:var(--r-sm); padding:12px;">
+            <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:#7A1A1A; font-weight:600; margin-bottom:6px;">Slow (4+ yrs)</div>
+            <div style="line-height:1.9; color:#6A1818; font-size:12px;">
+              ⬤ Semiconductors<br>
+              ⬤ Advanced displays<br>
+              ⬤ Precision instruments<br>
+              ⬤ Aerospace components<br>
+              ⬤ Heavy machinery
+            </div>
+          </div>
+          <div style="background:var(--accent-purple-light); border:1px solid #D8D0F0; border-radius:var(--r-sm); padding:12px;">
+            <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:#3A2A8A; font-weight:600; margin-bottom:6px;">China Retains Edge</div>
+            <div style="line-height:1.9; color:#332080; font-size:12px;">
+              ⧖ Rare earth magnets<br>
+              ⧖ Specialty chemicals<br>
+              ⧖ Drone components<br>
+              ⧖ Solar panel components<br>
+              ⧖ Battery cells
+            </div>
+          </div>
+        </div>
+        <div class="assumption-box" style="margin-top:10px;"><strong>Source:</strong> <span class="src" data-src="Rhodium Group Chain Reaction and Alfaro & Chor 2025 for timing. China retains edge: China imposed export controls on rare earths, drone components in late 2024. Source: Wikipedia US-China trade war; Rhodium Group.">Rhodium Group; Alfaro & Chor CEPR 2025; US–China tariff war Wikipedia (export controls).</span></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="grid-2" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-title">India's Sector Opportunities — Tariff-Adjusted Competitiveness</div>
+      <div class="card-sub">Which sectors India can realistically win post the Feb 2026 18% deal. <span class="src" data-src="Analysis based on: tariff rates (ClearTax, India Briefing), sector export data (Ministry of Commerce India), PLI sector targets (PIB), competitor tariff disadvantages. Electronics: India 18% vs Vietnam 46% = 28pp advantage. Textiles: India 18% vs Bangladesh 37% = 19pp advantage. Pharma: already exempt.">Author analysis using tariff rates from ClearTax/India Briefing, sector data from Ministry of Commerce India, PLI data from PIB.</span></div>
+      <div style="font-size:13px; margin-top:8px; line-height:1;">
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; align-items:center; gap:10px; padding:10px; border:1px solid var(--border); border-radius:var(--r-sm);">
+            <div style="width:48px; height:48px; background:var(--accent-green-light); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;">📱</div>
+            <div style="flex:1;">
+              <div style="font-weight:500;">Electronics / Smartphones</div>
+              <div style="font-size:12px; color:var(--text-secondary);">India 18% vs Vietnam 46% = <span class="src" data-src="India Electronics: 18% tariff vs Vietnam 46% = 28pp advantage. Combined with Apple, Samsung, Google investments. Source: The Global Statistics, India Briefing."><strong>+28pp advantage</strong></span></div>
+            </div>
+            <span class="pill pill-low">★★★★★</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; padding:10px; border:1px solid var(--border); border-radius:var(--r-sm);">
+            <div style="width:48px; height:48px; background:var(--accent-teal-light); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;">💊</div>
+            <div style="flex:1;">
+              <div style="font-weight:500;">Pharmaceuticals</div>
+              <div style="font-size:12px; color:var(--text-secondary);"><span class="src" data-src="Pharma currently tariff-exempt. US relies on Indian generics (44% of US generics are from India). Source: PineBridge, BRIEF India.">Exempt from tariffs</span>. 44% of US generics sourced from India</div>
+            </div>
+            <span class="pill pill-low">★★★★★</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; padding:10px; border:1px solid var(--border); border-radius:var(--r-sm);">
+            <div style="width:48px; height:48px; background:var(--accent-blue-light); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;">🔌</div>
+            <div style="flex:1;">
+              <div style="font-weight:500;">Auto Components & EV Parts</div>
+              <div style="font-size:12px; color:var(--text-secondary);">China auto/parts 2023 exports $18B vs India $2.1B — <span class="src" data-src="China's 2023 auto and component exports to the US were $17.99B; India's were $2.1B in 2024. '360% growth potential'. Source: The Federal (Apr 2025), India Briefing.">360% potential headroom</span></div>
+            </div>
+            <span class="pill pill-pos">★★★★☆</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px; padding:10px; border:1px solid var(--border); border-radius:var(--r-sm);">
+            <div style="width:48px; height:48px; background:var(--accent-orange-light); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;">👕</div>
+            <div style="flex:1;">
+              <div style="font-weight:500;">Textiles & Apparel</div>
+              <div style="font-size:12px; color:var(--text-secondary);">India 18% vs Bangladesh 37% = <span class="src" data-src="Post Feb-2026 deal India 18% vs Bangladesh 37% = 19pp advantage. Textiles/apparel exports were $8.68B in 2024. Source: The Global Statistics, BRIEF India, India Briefing."><strong>+19pp advantage</strong></span>, but Bangladesh faces survival pressure</div>
+            </div>
+            <span class="pill pill-pos">★★★☆☆</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">US Economic Impact of Tariff Policy (2018–2025)</div>
+      <div class="card-sub">Domestic costs and benefits — the other side of the tariff equation. <span class="src" data-src="Economic impact data: Richmond Fed EB Apr 2025 (employment effects). Tax Foundation Tariff Tracker 2026 ($1,500/household tax). IMF Jan 2024 paper (reversing 2018-19 tariffs would boost US output 4% over 3 years). David Autor et al. Jan 2024 (employment: -1.8% relative, ~220,000 jobs, rising to 320,000 with China retaliation). PIIE: near-complete pass-through to US consumer prices.">Sources: Richmond Fed, Tax Foundation, IMF (Jan 2024), Autor et al. (Jan 2024), PIIE (May 2023).</span></div>
+      <div class="chart-wrap ch-280">
+        <canvas id="usImpactChart"></canvas>
+      </div>
+      <div class="insight-box">
+        <p>A <span class="src" data-src="IMF Jan 2024 paper: 'reversing the 2018-2019 tariffs would increase US output by 4 percent over three years'. Also estimates tariff shocks reduce imports more than exports. Source: Richmond Fed Economic Brief Apr 2025 citing IMF working paper.">Jan 2024 IMF paper found reversing 2018–19 tariffs would boost US GDP by 4% over 3 years</span>. The Tax Foundation estimates the 2026 tariff regime costs the average US household <span class="src" data-src="Tax Foundation Tariff Tracker (updated Mar 2026): 'The Trump tariffs amount to an average tax increase per US household of $1,500 in 2026.'">$1,500/year</span>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <h3>Data Sources & Methodology</h3>
+    <p>This dashboard is built on publicly available research and trade data. Primary sources include: <strong>Alfaro & Chor (2025)</strong> "Update on the Great Reallocation" (CEPR VoxEU); <strong>Freund et al. (2024)</strong> "Is US Trade Policy Reshaping Global Supply Chains?" (World Bank / Journal of International Economics); <strong>Rhodium Group</strong> "Chain Reaction: US Tariffs and Global Supply Chains" (2025); <strong>Tax Foundation</strong> Tariff Tracker (updated March 2026); <strong>US Census Bureau / BEA</strong> Monthly Trade Release (Feb 2026 with Q4 2025 data); <strong>Richmond Fed</strong> Economic Brief EB 25-12 (April 2025); <strong>ClearTax India</strong> US Tariff on India (updated Feb 2026); <strong>PIB India</strong> PLI Scheme press releases (Sept 2025); <strong>The Global Statistics</strong> India–US Trade Deal Statistics (Feb 2026); <strong>India Briefing</strong> Manufacturing Tracker (Dec 2025); <strong>BanglaMindscape</strong> Comparative Analysis (April 2025); <strong>PineBridge Investments</strong> India Markets Analysis (April 2025); <strong>IBEF</strong> Manufacturing Sector India (2025); <strong>CNBC Inside India</strong> (April 2025); <strong>Diplomatist</strong> (Sept 2025).</p>
+    <p style="margin-top:12px;"><strong>Assumptions:</strong> Where direct data is unavailable, the Cluster Activity Index (CAI), relocation speed classifications, and relative competitive scores are author estimates synthesised from the above sources. All such estimates are labelled with the "hover for source" tooltip throughout the dashboard. Tariff rates reflect the state as of March 2026; they are subject to change as negotiations continue.</p>
+    <p style="margin-top:12px; color:var(--text-muted);">Built for public deployment. Data valid as of March 2026. Not financial or investment advice.</p>
+  </div>
+</footer>
+
+<script>
+// ══════ SCROLL NAV ══════
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// ══════ CHART DEFAULTS ══════
+const FONT = "'DM Sans', sans-serif";
+Chart.defaults.font.family = FONT;
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#5c5b57';
+Chart.defaults.plugins.legend.display = false;
+Chart.defaults.plugins.tooltip.backgroundColor = '#1a1917';
+Chart.defaults.plugins.tooltip.titleColor = '#ffffff';
+Chart.defaults.plugins.tooltip.bodyColor = '#d4d2cc';
+Chart.defaults.plugins.tooltip.padding = 10;
+Chart.defaults.plugins.tooltip.cornerRadius = 8;
+
+// ══════ COLORS ══════
+const C = {
+  blue: '#1B5FA3', blueL: '#E3EEFB',
+  red: '#C03535', redL: '#FAEAEA',
+  orange: '#B96818', orangeL: '#FDF0E0',
+  green: '#2E6E2E', greenL: '#E8F3E8',
+  teal: '#1A7A5E', tealL: '#E2F3EE',
+  purple: '#5A3FB5', purpleL: '#EDEBFB',
+  gray: '#8f8e8a', grayL: '#F1EFE8',
+  amber: '#B0780C',
+};
+
+// ══════════════════════════════════════════════
+// CHART 1: TARIFF RATES OVER TIME
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('tariffRateChart'), {
+  type: 'line',
+  data: {
+    labels: ['2017','2018','2019','2020','2021','2022','2023','2024','Apr 2025 (peak)','May 2025 (truce)','Feb 2026'],
+    datasets: [
+      {
+        label: 'China',
+        data: [3, 12, 21, 21, 21, 21, 21, 30, 145, 30, 30],
+        borderColor: C.red, backgroundColor: C.redL,
+        tension: 0.3, borderWidth: 2.5, pointRadius: 4, fill: false
+      },
+      {
+        label: 'India',
+        data: [4, 4, 4, 4, 4, 4, 4, 4, 26, 26, 18],
+        borderColor: C.orange, backgroundColor: C.orangeL,
+        tension: 0.3, borderWidth: 2.5, pointRadius: 4, fill: false
+      },
+      {
+        label: 'Vietnam',
+        data: [4, 4, 4, 4, 4, 4, 4, 4, 46, 46, 46],
+        borderColor: C.teal, backgroundColor: C.tealL,
+        tension: 0.3, borderWidth: 2, pointRadius: 4, fill: false
+      },
+      {
+        label: 'Bangladesh',
+        data: [4, 4, 4, 4, 4, 4, 4, 4, 37, 37, 37],
+        borderColor: C.green, backgroundColor: C.greenL,
+        tension: 0.3, borderWidth: 2, pointRadius: 4, fill: false,
+        borderDash: [5,4]
+      },
+      {
+        label: 'Mexico',
+        data: [2, 2, 2, 2, 2, 2, 2, 2, 25, 12, 10],
+        borderColor: C.purple, backgroundColor: C.purpleL,
+        tension: 0.3, borderWidth: 2, pointRadius: 4, fill: false,
+        borderDash: [3,3]
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: true, position: 'top',
+        labels: { usePointStyle: true, pointStyle: 'circle', padding: 16, font: {size:12} } },
+      tooltip: {
+        callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}%` }
+      }
+    },
+    scales: {
+      y: { title: { display: true, text: 'Effective Tariff Rate (%)' }, grid: { color: 'rgba(0,0,0,0.05)' } },
+      x: { grid: { display: false }, ticks: { maxRotation: 30 } }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// CHART 2: IMPORT SHARE COMPARISON
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('importShareChart'), {
+  type: 'bar',
+  data: {
+    labels: ['China', 'Mexico', 'Vietnam', 'Canada', 'Germany', 'Japan', 'Taiwan', 'India', 'S.Korea', 'Malaysia'],
+    datasets: [
+      {
+        label: '2017',
+        data: [21.6, 13.4, 2.0, 12.8, 5.1, 5.9, 2.3, 2.1, 3.1, 2.0],
+        backgroundColor: 'rgba(27,95,163,0.3)', borderColor: C.blue,
+        borderWidth: 1.5
+      },
+      {
+        label: '2024',
+        data: [13.0, 15.4, 4.0, 11.2, 5.4, 4.8, 4.3, 2.6, 3.5, 3.8],
+        backgroundColor: C.blue, borderColor: C.blue,
+        borderWidth: 0
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true, position: 'top',
+        labels: { usePointStyle: true, pointStyle: 'rect', padding: 16 }
+      },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}%` } }
+    },
+    scales: {
+      y: { title: { display: true, text: '% of US Imports' }, grid: { color: 'rgba(0,0,0,0.05)' } },
+      x: { grid: { display: false }, ticks: { maxRotation: 30 } }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// CHART 3: CHINA EXPORTS BY TYPE
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('chinaExportsChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2017','2018','2019','2020','2021','2022','2023','2024'],
+    datasets: [
+      {
+        label: 'Electronics / Tech',
+        data: [192, 181, 164, 155, 172, 165, 148, 138],
+        backgroundColor: C.blue, stack: 'a'
+      },
+      {
+        label: 'Machinery',
+        data: [88, 80, 70, 64, 72, 66, 58, 50],
+        backgroundColor: C.teal, stack: 'a'
+      },
+      {
+        label: 'Apparel / Textiles',
+        data: [52, 46, 36, 28, 31, 26, 22, 18],
+        backgroundColor: C.orange, stack: 'a'
+      },
+      {
+        label: 'Furniture / Goods',
+        data: [40, 35, 28, 22, 20, 16, 14, 12],
+        backgroundColor: C.amber, stack: 'a'
+      },
+      {
+        label: 'Other',
+        data: [134, 115, 108, 102, 110, 98, 90, 82],
+        backgroundColor: C.gray, stack: 'a'
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true, position: 'top',
+        labels: { usePointStyle: true, pointStyle: 'rect', padding: 12, font:{size:11} }
+      },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: $${ctx.parsed.y}B` } }
+    },
+    scales: {
+      y: { stacked: true, title: { display: true, text: 'US Imports from China ($B)' }, grid: { color:'rgba(0,0,0,0.05)' } },
+      x: { stacked: true, grid: { display: false } }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// CHART 4: TRADE DEFICIT
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('tradeDeficitChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Vietnam', 'Mexico', 'China', 'Taiwan', 'Germany', 'India', 'Japan', 'Malaysia'],
+    datasets: [{
+      label: 'Trade Deficit ($B, Q4 2025 annual)',
+      data: [47.7, 49.5, 31.7, 50.7, 21.6, 13.4, 10.8, 7.9],
+      backgroundColor: [C.teal, C.purple, C.red, C.purple, C.blue, C.orange, C.blue, C.teal],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    indexAxis: 'y',
+    plugins: {
+      tooltip: { callbacks: { label: ctx => ` $${ctx.parsed.x}B` } }
+    },
+    scales: {
+      x: { title: { display: true, text: 'US Trade Deficit ($B)' }, grid: { color:'rgba(0,0,0,0.05)' } },
+      y: { grid: { display: false } }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// CHART 5: AETR
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('aetrChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2024 Baseline', '+ China & Steel', '+ Canada/Mexico', '+ Auto Tariffs', 'Post-Truce Estimate'],
+    datasets: [{
+      label: 'AETR (%)',
+      data: [2.2, 7.1, 10.4, 12.4, 8.5],
+      backgroundColor: [C.grayL, C.blueL, C.orangeL, C.redL, C.greenL],
+      borderColor: [C.gray, C.blue, C.orange, C.red, C.green],
+      borderWidth: 1.5
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      tooltip: { callbacks: { label: ctx => ` AETR: ${ctx.parsed.y}%` } }
+    },
+    scales: {
+      y: { title: { display: true, text: 'AETR (%)' }, grid: { color:'rgba(0,0,0,0.05)' } },
+      x: { grid: { display: false }, ticks: { maxRotation: 25 } }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// CHART 6: ELECTRONICS CLUSTER BUBBLE
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('electronicsClusterChart'), {
+  type: 'bubble',
+  data: {
+    datasets: [
+      { label: 'India (TN/KA)', data: [{x:41, y:40, r:18}], backgroundColor: 'rgba(185,104,24,0.7)', borderColor: C.orange },
+      { label: 'Vietnam (Bac Ninh)', data: [{x:45, y:58, r:22}], backgroundColor: 'rgba(26,122,94,0.7)', borderColor: C.teal },
+      { label: 'Taiwan', data: [{x:38, y:72, r:28}], backgroundColor: 'rgba(27,95,163,0.7)', borderColor: C.blue },
+      { label: 'Mexico (Juarez/MTY)', data: [{x:55, y:52, r:20}], backgroundColor: 'rgba(90,63,181,0.7)', borderColor: C.purple },
+      { label: 'Malaysia (Penang)', data: [{x:35, y:62, r:16}], backgroundColor: 'rgba(46,110,46,0.7)', borderColor: C.green },
+      { label: 'China (GBA)', data: [{x:18, y:45, r:40}], backgroundColor: 'rgba(192,53,53,0.4)', borderColor: C.red },
+      { label: 'India (Noida/Delhi)', data: [{x:35, y:32, r:14}], backgroundColor: 'rgba(185,104,24,0.5)', borderColor: C.orange },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: true, position: 'right',
+        labels: { usePointStyle:true, pointStyle:'circle', padding:10, font:{size:11} }
+      },
+      tooltip: {
+        callbacks: {
+          label: ctx => `${ctx.dataset.label}: FDI growth ${ctx.parsed.x}%, Export growth ${ctx.parsed.y}%, Employment ${Math.round(ctx.parsed.r * 25)}k`
+        }
+      }
+    },
+    scales: {
+      x: { title: { display:true, text:'FDI Growth (%, 2020-2025)' }, min:0, max:75, grid:{color:'rgba(0,0,0,0.05)'} },
+      y: { title: { display:true, text:'Export Value Growth (%, 2020-2025)' }, min:0, max:90, grid:{color:'rgba(0,0,0,0.05)'} }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// CHART 7: PLI PRODUCTION GROWTH
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('pliChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Large Electronics', 'Mobile/IT HW', 'Pharma', 'Telecom', 'Auto & Parts', 'Textiles', 'Food Processing', 'White Goods', 'Medical Devices'],
+    datasets: [
+      {
+        label: 'FY2020-21 (₹L crore)',
+        data: [2.13, 0.8, 1.9, 0.5, 1.2, 0.4, 0.6, 0.3, 0.2],
+        backgroundColor: 'rgba(27,95,163,0.25)', borderColor: C.blue, borderWidth:1
+      },
+      {
+        label: 'FY2024-25 (₹L crore)',
+        data: [5.25, 2.1, 2.66, 1.4, 2.8, 0.55, 1.1, 0.8, 0.45],
+        backgroundColor: C.blue, borderWidth:0
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display:true, position:'top', labels:{usePointStyle:true,pointStyle:'rect',padding:14,font:{size:11}} },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ₹${ctx.parsed.y}L crore` } }
+    },
+    scales: {
+      y: { title:{display:true,text:'Production/Sales (₹ Lakh crore)'}, grid:{color:'rgba(0,0,0,0.05)'} },
+      x: { grid:{display:false}, ticks:{maxRotation:35, font:{size:10}} }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// CHART 8: RADAR — India vs Vietnam
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: ['Electronics Supply Chain', 'Textiles / Apparel', 'Pharmaceuticals', 'Automotive Parts', 'IT / Services', 'Infrastructure / Logistics', 'Labour Cost Advantage', 'Policy Support (FTZ/SEZ)'],
+    datasets: [
+      {
+        label: 'India',
+        data: [65, 55, 92, 60, 88, 48, 60, 65],
+        borderColor: C.orange, backgroundColor: 'rgba(185,104,24,0.15)',
+        borderWidth: 2, pointRadius: 4
+      },
+      {
+        label: 'Vietnam',
+        data: [82, 88, 30, 70, 30, 78, 75, 85],
+        borderColor: C.teal, backgroundColor: 'rgba(26,122,94,0.15)',
+        borderWidth: 2, pointRadius: 4
+      },
+      {
+        label: 'Bangladesh',
+        data: [20, 95, 15, 20, 10, 52, 90, 58],
+        borderColor: C.green, backgroundColor: 'rgba(46,110,46,0.1)',
+        borderWidth: 2, pointRadius: 4,
+        borderDash: [5,3]
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display:true, position:'top',
+        labels: {usePointStyle:true,pointStyle:'circle',padding:16,font:{size:12}}
+      }
+    },
+    scales: {
+      r: {
+        min: 0, max: 100,
+        ticks: { stepSize: 25, font:{size:9} },
+        pointLabels: { font:{size:11} },
+        grid: { color: 'rgba(0,0,0,0.08)' },
+        angleLines: { color: 'rgba(0,0,0,0.08)' }
+      }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// CHART 9: COMPETITIVENESS MULTI-BAR
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('competitivenessChart'), {
+  type: 'bar',
+  data: {
+    labels: ['US Tariff Rate (current)', 'Wage Index (US=100)', 'Logistics Performance', 'Export-GDP Ratio', 'FDI Growth 2023-25'],
+    datasets: [
+      {
+        label: 'India', data: [18, 8, 48, 20, 45],
+        backgroundColor: C.orange, borderWidth:0
+      },
+      {
+        label: 'Vietnam', data: [46, 6, 78, 87, 55],
+        backgroundColor: C.teal, borderWidth:0
+      },
+      {
+        label: 'Bangladesh', data: [37, 3, 45, 25, 28],
+        backgroundColor: C.green, borderWidth:0
+      },
+      {
+        label: 'China', data: [30, 18, 72, 19, -8],
+        backgroundColor: C.red, borderWidth:0
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display:true, position:'top', labels:{usePointStyle:true,pointStyle:'rect',padding:12,font:{size:11}} }
+    },
+    scales: {
+      y: { grid:{color:'rgba(0,0,0,0.05)'} },
+      x: { grid:{display:false}, ticks:{maxRotation:25, font:{size:10}} }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// CHART 10: INDIA SECTOR DOUGHNUT
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('indiaSectorChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Electrical Machinery/Electronics', 'Pharmaceuticals', 'Gems & Jewellery', 'Textiles & Apparel', 'Engineering Goods', 'Marine Products', 'IT Hardware', 'Other'],
+    datasets: [{
+      data: [19.0, 13.0, 8.5, 8.7, 7.0, 2.6, 3.5, 24.9],
+      backgroundColor: [C.blue, C.teal, C.purple, C.orange, C.green, C.amber, C.red, C.gray],
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '58%',
+    plugins: {
+      legend: {
+        display: true, position: 'right',
+        labels: { usePointStyle:true, pointStyle:'circle', padding:10, font:{size:11}, boxWidth:12 }
+      },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: $${ctx.parsed}B` } }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// CHART 11: IMPORT GROWTH INDEXED
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('importGrowthChart'), {
+  type: 'line',
+  data: {
+    labels: ['2017','2018','2019','2020','2021','2022','2023','2024'],
+    datasets: [
+      {
+        label: 'Vietnam', data: [100, 118, 135, 128, 162, 195, 225, 248],
+        borderColor: C.teal, borderWidth: 2.5, tension:0.3, pointRadius:4, fill:false
+      },
+      {
+        label: 'Mexico', data: [100, 108, 118, 108, 130, 148, 162, 151],
+        borderColor: C.purple, borderWidth: 2.5, tension:0.3, pointRadius:4, fill:false
+      },
+      {
+        label: 'Taiwan', data: [100, 108, 112, 118, 140, 162, 168, 186],
+        borderColor: C.blue, borderWidth: 2.5, tension:0.3, pointRadius:4, fill:false
+      },
+      {
+        label: 'India', data: [100, 108, 112, 102, 118, 135, 148, 178],
+        borderColor: C.orange, borderWidth: 2.5, tension:0.3, pointRadius:4, fill:false,
+        borderDash: [6,3]
+      },
+      {
+        label: 'China', data: [100, 92, 84, 82, 88, 80, 74, 62],
+        borderColor: C.red, borderWidth: 2.5, tension:0.3, pointRadius:4, fill:false
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display:true, position:'top', labels:{usePointStyle:true,pointStyle:'circle',padding:12,font:{size:11}} },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y} (2017=100)` } }
+    },
+    scales: {
+      y: { title:{display:true,text:'Index (2017 = 100)'}, grid:{color:'rgba(0,0,0,0.05)'} },
+      x: { grid:{display:false} }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// CHART 12: FDI BAR
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('fdiChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Mexico', 'India', 'Vietnam', 'Indonesia', 'Malaysia', 'Thailand', 'Bangladesh'],
+    datasets: [
+      {
+        label: '2021 ($B)', data: [22, 8.5, 15, 12, 9, 7, 2.9],
+        backgroundColor: 'rgba(27,95,163,0.25)', borderColor:C.blue, borderWidth:1
+      },
+      {
+        label: '2024 ($B)', data: [36, 19, 22, 22, 14, 12, 4.5],
+        backgroundColor: C.blue, borderWidth:0
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display:true, position:'top', labels:{usePointStyle:true,pointStyle:'rect',padding:14,font:{size:11}} },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: $${ctx.parsed.y}B` } }
+    },
+    scales: {
+      y: { title:{display:true,text:'Manufacturing FDI ($B)'}, grid:{color:'rgba(0,0,0,0.05)'} },
+      x: { grid:{display:false} }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// CHART 13: TARIFF DIFFERENTIAL
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('tariffDiffChart'), {
+  type: 'bar',
+  data: {
+    labels: ['EV Batteries', 'Electric Vehicles', 'Solar Cells', 'Steel/Aluminum', 'Semiconductors', 'Industrial Machinery', 'Apparel', 'Consumer Electronics', 'Video Game Consoles'],
+    datasets: [
+      {
+        label: 'China Rate', data: [100, 100, 50, 25, 50, 25, 25, 30, 25],
+        backgroundColor: C.red, borderWidth:0
+      },
+      {
+        label: 'India Rate (post-deal)', data: [18, 18, 18, 18, 18, 18, 18, 18, 18],
+        backgroundColor: C.orange, borderWidth:0
+      },
+      {
+        label: 'Vietnam Rate', data: [46, 46, 46, 46, 46, 46, 46, 46, 46],
+        backgroundColor: C.teal, borderWidth:0
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    indexAxis: 'y',
+    plugins: {
+      legend: { display:true, position:'top', labels:{usePointStyle:true,pointStyle:'rect',padding:12,font:{size:11}} },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.x}%` } }
+    },
+    scales: {
+      x: { title:{display:true,text:'Tariff Rate (%)'}, grid:{color:'rgba(0,0,0,0.05)'} },
+      y: { grid:{display:false}, ticks:{font:{size:11}} }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// CHART 14: US ECONOMIC IMPACT
+// ══════════════════════════════════════════════
+new Chart(document.getElementById('usImpactChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Consumer price ↑ (2018–19)', 'Jobs lost (input sectors)', 'Jobs gained (protected)', 'GDP cost (2018–19 tariffs)', 'Avg HH cost 2026'],
+    datasets: [{
+      label: 'Impact',
+      data: [-2.2, -1.8, 0.8, -1.4, -1.5],
+      backgroundColor: [-2.2,-1.8,-1.4,-1.5].map(() => C.redL).concat([C.greenL]),
+      borderColor: [-2.2,-1.8,-1.4,-1.5].map(() => C.red).concat([C.green]),
+      borderWidth: 1.5
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const labels = [' +2.2% consumer price increase', ' −220k jobs (net)', ' +100k jobs protected', ' −1.4% GDP impact', ' $1,500/HH annual cost'];
+            return labels[ctx.dataIndex] || ` ${ctx.parsed.y}`;
+          }
+        }
+      }
+    },
+    scales: {
+      y: { title:{display:true,text:'% or $k'}, grid:{color:'rgba(0,0,0,0.05)'} },
+      x: { grid:{display:false}, ticks:{maxRotation:30, font:{size:10}} }
+    }
+  }
+});
+
+// ══════════════════════════════════════════════
+// LEAFLET MAP
+// ══════════════════════════════════════════════
+const map = L.map('trade-map', { zoomControl: true, scrollWheelZoom: false }).setView([20, 120], 2);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap © CartoDB', maxZoom: 8
+}).addTo(map);
+
+// Key port/city markers
+const ports = [
+  { pos: [31.2, 121.5], name: 'Shanghai', role: 'China: Largest export hub', color: '#C03535', trade: '$506B→$427B US trade (2017→2024)' },
+  { pos: [22.5, 114.0], name: 'Shenzhen / GBA', role: 'China: Electronics/tech hub', color: '#C03535', trade: 'Pearl River Delta — declining cluster' },
+  { pos: [10.8, 106.7], name: 'Ho Chi Minh City', role: 'Vietnam: Fastest growing hub', color: '#1A7A5E', trade: '$46B→$115B US trade, Samsung & Intel anchors' },
+  { pos: [21.0, 105.8], name: 'Hanoi / Bac Ninh', role: 'Vietnam: Electronics (Samsung)', color: '#1A7A5E', trade: 'Bac Ninh/Bac Giang: ~40% of global Samsung phones' },
+  { pos: [19.1, 72.9], name: 'Mumbai / Mundra', role: 'India: Primary export port', color: '#B96818', trade: 'India-US Suez route: $87B exports' },
+  { pos: [13.1, 80.3], name: 'Chennai', role: 'India: Electronics/Pharma hub', color: '#B96818', trade: 'Apple iPhone (Foxconn), Google Pixel (Foxconn/Dixon)' },
+  { pos: [12.9, 77.6], name: 'Bengaluru', role: 'India: IT & Electronics design', color: '#B96818', trade: '19% of global chip designers' },
+  { pos: [25.0, 121.5], name: 'Taipei / TSMC', role: 'Taiwan: Semiconductor anchor', color: '#5A3FB5', trade: 'Taiwan: +2pp US import share; TSMC Arizona expanding' },
+  { pos: [19.3, -99.1], name: 'Mexico City / Monterrey', role: 'Mexico: USMCA nearshoring', color: '#5A3FB5', trade: 'Mexico became #1 US goods partner (2023)' },
+  { pos: [23.7, 90.4], name: 'Dhaka', role: 'Bangladesh: Garments hub', color: '#2E6E2E', trade: '$47B apparel exports, 84% of GDP; faces 37% US tariff' },
+  { pos: [37.5, -122.2], name: 'San Francisco / LA', role: 'US West Coast entry', color: '#1B5FA3', trade: 'Primary US import gateway for Asia-Pacific goods' },
+  { pos: [40.7, -74.0], name: 'New York', role: 'US East Coast gateway', color: '#1B5FA3', trade: 'India/EU/Middle East supply chains enter here' }
+];
+
+ports.forEach(p => {
+  const marker = L.circleMarker(p.pos, {
+    radius: 7, fillColor: p.color, color: '#fff',
+    weight: 1.5, fillOpacity: 0.85
+  }).addTo(map);
+  marker.bindPopup(`<strong>${p.name}</strong><br><em>${p.role}</em><br>${p.trade}`, {maxWidth:220});
+});
+
+// Shipping lanes as polylines
+const lanes = [
+  // China - US Pacific (thick, declining)
+  { points: [[31.2,121.5],[35,140],[40,155],[35,175],[-5,200],[20,225],[35,242],[37.5,-122.2]], color:'#C03535', weight:5, opacity:0.55, dash:null, label:'China→US' },
+  // India - US via Suez
+  { points: [[19.1,72.9],[12,45],[11,45],[12,40],[8,43],[-2,44],[-12,42],[-30,20],[-33,18],[-30,-5],[14,-17],[30,-40],[40,-74]], color:'#B96818', weight:3.5, opacity:0.65, dash:null, label:'India→US' },
+  // Vietnam - US Pacific
+  { points: [[10.8,106.7],[14,115],[20,135],[25,155],[30,175],[35,195],[37.5,235],[37.5,-122.2]], color:'#1A7A5E', weight:4, opacity:0.65, dash:null, label:'Vietnam→US' },
+  // Taiwan - US
+  { points: [[25,121.5],[28,135],[32,155],[35,175],[36,195],[37,220],[37.5,235],[37.5,-122.2]], color:'#5A3FB5', weight:3, opacity:0.6, dash:[6,4], label:'Taiwan→US' },
+  // Mexico - US land
+  { points: [[25.7,-100.3],[26,-96],[29,-95],[29.9,-90],[30,-84],[35,-76],[40.7,-74.0]], color:'#5A3FB5', weight:3, opacity:0.5, dash:[6,4], label:'Mexico→US' },
+];
+
+lanes.forEach(l => {
+  L.polyline(l.points, {
+    color: l.color, weight: l.weight, opacity: l.opacity,
+    dashArray: l.dash ? l.dash.join(',') : null
+  }).addTo(map);
+});
+
+// Active intersection ports indicator
+const activePorts = [[37.5,-122.2],[40.7,-74.0]];
+activePorts.forEach(p => {
+  L.circleMarker(p, {radius:10,fillColor:'#1B5FA3',color:'#fff',weight:2,fillOpacity:0.9}).addTo(map);
+});
+
+</script>
+</body>
+</html>
