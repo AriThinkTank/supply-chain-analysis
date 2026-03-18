@@ -221,13 +221,13 @@
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <button class="nav-btn active" onclick="scrollTo('tariff-timeline')">Tariff Timeline</button>
-    <button class="nav-btn" onclick="scrollTo('import-shifts')">US Import Shifts</button>
-    <button class="nav-btn" onclick="scrollTo('shipping-map')">Shipping Lanes</button>
-    <button class="nav-btn" onclick="scrollTo('industrial-clusters')">Industrial Clusters</button>
-    <button class="nav-btn" onclick="scrollTo('india-analysis')">India Analysis</button>
-    <button class="nav-btn" onclick="scrollTo('country-compare')">Country Comparison</button>
-    <button class="nav-btn" onclick="scrollTo('sector-impact')">Sector Impact</button>
+    <button class="nav-btn active" onclick="scrollToSection(this, 'tariff-timeline')">Tariff Timeline</button>
+    <button class="nav-btn" onclick="scrollToSection(this, 'import-shifts')">US Import Shifts</button>
+    <button class="nav-btn" onclick="scrollToSection(this, 'shipping-map')">Shipping Lanes</button>
+    <button class="nav-btn" onclick="scrollToSection(this, 'industrial-clusters')">Industrial Clusters</button>
+    <button class="nav-btn" onclick="scrollToSection(this, 'india-analysis')">India Analysis</button>
+    <button class="nav-btn" onclick="scrollToSection(this, 'country-compare')">Country Comparison</button>
+    <button class="nav-btn" onclick="scrollToSection(this, 'sector-impact')">Sector Impact</button>
   </div>
 </nav>
 
@@ -909,10 +909,10 @@
 
 <script>
 // ══════ SCROLL NAV ══════
-function scrollTo(id) {
+function scrollToSection(btn, id) {
   document.getElementById(id).scrollIntoView({behavior:'smooth'});
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
+  btn.classList.add('active');
 }
 
 // ══════ CHART DEFAULTS ══════
